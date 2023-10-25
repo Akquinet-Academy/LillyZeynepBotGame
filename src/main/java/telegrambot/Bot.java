@@ -44,8 +44,8 @@ public class Bot extends TelegramLongPollingBot {
         if (messageReceived.toLowerCase().equals("ready")) {
             sendMessage(chatId, "Here we go!\nYou will need to rate each question from 1 to 5.\n1 means 'not at all' and 5 'absolutely'", false);
             game = new Game();
-            sendAudio(chatId);
             sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs");
+            sendAudio(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\drumroll.mp3");
             sendQuestion(chatId, game.getQuestion().toString(), true);
         } else if(messageReceived.equals("1") ||
                   messageReceived.equals("2") ||
@@ -139,9 +139,6 @@ public class Bot extends TelegramLongPollingBot {
     public void sendSticker(long chatId, String stickerPath){
         InputFile stickerFile = new InputFile(new File(stickerPath));
         SendSticker stickerMessage = new SendSticker(String.valueOf(chatId), stickerFile);
-
-        stickerMessage.setChatId(chatId);
-        //stickerMessage.setSticker(file);
         try {
             execute(stickerMessage);
         } catch (Exception e) {
@@ -149,16 +146,11 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendAudio(long chatId){
-
-        String audioFilePath = "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\081483_pinkie-it39s-party-timewav-82658.mp3";
-
+    public void sendAudio(long chatId, String audioFilePath){
         InputFile audioDatei = new InputFile(new File(audioFilePath));
-        SendAudio sendAudio = new SendAudio(String.valueOf(chatId), audioDatei);
-        sendAudio.setChatId(chatId);
-        sendAudio.setAudio(audioDatei);
+        SendAudio sendAudioMessage = new SendAudio(String.valueOf(chatId), audioDatei);
         try {
-            execute(sendAudio);
+            execute(sendAudioMessage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,6 +169,7 @@ public class Bot extends TelegramLongPollingBot {
                 @Override
                 public void run() {
                     try {
+                        createCustomKeyboard(message);
                         execute(message);
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
@@ -186,6 +179,7 @@ public class Bot extends TelegramLongPollingBot {
 
         } else {
             try {
+                createCustomKeyboard(message);
                 execute(message);
             } catch (TelegramApiException e) {
                 e.printStackTrace();
