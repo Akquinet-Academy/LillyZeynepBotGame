@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 public class Question {
   //  private String title;
     private String text;
+    private int id;
 
 
-    public Question(String text) {
+    public Question(String text, int id) {
         this.text = text;
+        this.id = id;
     }
 
     @Override
