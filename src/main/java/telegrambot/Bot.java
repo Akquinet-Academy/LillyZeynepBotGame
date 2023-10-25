@@ -38,13 +38,14 @@ public class Bot extends TelegramLongPollingBot {
         if (messageReceived.toLowerCase().startsWith("/start")) {
             sendMessage(chatId, "Hello! Welcome pet lover!  \uD83D\uDC36\n", false);
             sendMessage(chatId, "Let's answer some questions to find the purrfect pet for you!",false);
-            sendMessage(chatId, "Type 'ready' if you are ready!",false);
+            sendMessage(chatId, "Type 'ready' if you are ready! ☺",false);
         }
 
         if (messageReceived.toLowerCase().equals("ready")) {
-            sendMessage(chatId, "Here we go!\nYou will need to rate each question from 1 to 5.\n1 means 'not at all' and 5 'absolutely'", false);
+            sendMessage(chatId, "Here we go!", false);
+            sendMessage(chatId, "You will need to rate each question from 1 to 5.",false);
+            sendMessage(chatId, "Use the custom keyboard to do so!",false);
             game = new Game();
-            sendAudio(chatId);
             sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs");
             sendQuestion(chatId, game.getQuestion().toString(), true);
         } else if(messageReceived.equals("1") ||
@@ -59,10 +60,14 @@ public class Bot extends TelegramLongPollingBot {
             } else if(game.getIndex() == 9){
                 delegateTheUserAnswerToItsVariable((game.getIndex()),Integer.parseInt(messageReceived));
                 sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!\n\uD83E\uDD41 \uD83E\uDD41 \uD83E\uDD41", false);
+                sendDrumroll(chatId);
                 sendMessage(chatId, game.showWinningPet(cleaningScale, inactivityScale,
                         selfCenterednessScale, eatingLeftoversScale, eatingMeatScale,
                         prefersBeachHolidayScale, sensitivenessScale), true);
                 //sendSticker(chatId, );
+                sendMessage(chatId, "If you want, you can feed, entertain, love or train your purrfect pet. \uD83C\uDF7D\uFE0F  \uD83C\uDFB6 ❤ \uD83D\uDCA1 ", true);
+                sendMessage(chatId, "Use the custom keyboard again to do so!", true);
+
             }
 
         }
@@ -119,6 +124,7 @@ public class Bot extends TelegramLongPollingBot {
                 @Override
                 public void run() {
                     try {
+                        createCustomKeyboard(message);
                         execute(message);
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
@@ -128,6 +134,7 @@ public class Bot extends TelegramLongPollingBot {
 
         } else {
             try {
+                createCustomKeyboard(message);
                 execute(message);
             } catch (TelegramApiException e) {
                 e.printStackTrace();
@@ -139,9 +146,6 @@ public class Bot extends TelegramLongPollingBot {
     public void sendSticker(long chatId, String stickerPath){
         InputFile stickerFile = new InputFile(new File(stickerPath));
         SendSticker stickerMessage = new SendSticker(String.valueOf(chatId), stickerFile);
-
-        stickerMessage.setChatId(chatId);
-        //stickerMessage.setSticker(file);
         try {
             execute(stickerMessage);
         } catch (Exception e) {
@@ -149,14 +153,12 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendAudio(long chatId){
+    public void sendDrumroll(long chatId){
 
-        String audioFilePath = "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\081483_pinkie-it39s-party-timewav-82658.mp3";
+        String audioFilePath = "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\drumroll-93348.mp3";
 
         InputFile audioDatei = new InputFile(new File(audioFilePath));
         SendAudio sendAudio = new SendAudio(String.valueOf(chatId), audioDatei);
-        sendAudio.setChatId(chatId);
-        sendAudio.setAudio(audioDatei);
         try {
             execute(sendAudio);
         } catch (Exception e) {
@@ -202,7 +204,13 @@ public class Bot extends TelegramLongPollingBot {
         row.add("3");
         row.add("4");
         row.add("5");
+        KeyboardRow row2 = new KeyboardRow();
+        row2.add("feed");
+        row2.add("entertain");
+        row2.add("love");
+        row2.add("train");
         keyboard.add(row);
+        keyboard.add(row2);
         keyboardMarkup.setKeyboard(keyboard);
         message.setReplyMarkup(keyboardMarkup);
     }
