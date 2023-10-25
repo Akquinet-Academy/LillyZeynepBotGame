@@ -1,6 +1,7 @@
 package telegrambot;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendAudio;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
@@ -43,6 +44,7 @@ public class Bot extends TelegramLongPollingBot {
         if (messageReceived.toLowerCase().equals("ready")) {
             sendMessage(chatId, "Here we go!\nYou will need to rate each question from 1 to 5.\n1 means 'not at all' and 5 'absolutely'", false);
             game = new Game();
+            sendAudio(chatId);
             sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs");
             sendQuestion(chatId, game.getQuestion().toString(), true);
         } else if(messageReceived.equals("1") ||
@@ -131,6 +133,7 @@ public class Bot extends TelegramLongPollingBot {
                 e.printStackTrace();
             }
         }
+
     }
 
     public void sendSticker(long chatId, String stickerPath){
@@ -144,6 +147,22 @@ public class Bot extends TelegramLongPollingBot {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendAudio(long chatId){
+
+        String audioFilePath = "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\081483_pinkie-it39s-party-timewav-82658.mp3";
+
+        InputFile audioDatei = new InputFile(new File(audioFilePath));
+        SendAudio sendAudio = new SendAudio(String.valueOf(chatId), audioDatei);
+        sendAudio.setChatId(chatId);
+        sendAudio.setAudio(audioDatei);
+        try {
+            execute(sendAudio);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void sendQuestion(long chatId, String s, boolean t) {
@@ -190,12 +209,12 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "6548600979:AAFFNw7Zf64k2wDbmUz_QN9B9oNqQJXZ4gM";  // TODO: insert your bot token here!
+        return "6663371100:AAGNoAWH0oW3l-U_OgvLoStKLu_zQ3vh4YY";  // TODO: insert your bot token here!
     }
 
     @Override
     public String getBotUsername() {
-        return "CakiBotBot";  // TODO: insert your bots username here
+        return "PetWhispererBot";  // TODO: insert your bots username here
     }
 
 
