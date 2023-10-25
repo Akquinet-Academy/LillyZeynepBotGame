@@ -13,7 +13,7 @@ public class Game {
     private Map<String, Pet> petsList = this.initPets();
     private int index = 0;
 
-    private InputFile file; //holds the actual sticker File;
+    private Pet winner;
 
     public Game() {
     }
@@ -57,6 +57,10 @@ public class Game {
         return petsList;
     }
 
+    public Pet getWinner() {
+        return winner;
+    }
+
     public String showWinningPet(int cleaningScale,
                                  int inactivityScale,
                                  int selfCenterednessScale,
@@ -66,31 +70,40 @@ public class Game {
                                  int sensitivenessScale){
 
         if(sensitivenessScale == 5){
-            return "Chaos-Chamäleon";
+            winner = petsList.get("chameleon");
+            return winner.getName();
         } else {
             if(cleaningScale > 2){
                 if(inactivityScale >= 9){
-                    return "Faultier";
+                    winner = petsList.get("sloth");
+                    return winner.getName();
                 }
                 if(selfCenterednessScale >= 9){
-                    return "Ziege";
+                    winner = petsList.get("goat");
+                    return winner.getName();
                 }
                 if(inactivityScale < 9 && selfCenterednessScale < 9 && eatingMeatScale > 2){
-                    return "katze";
+                    winner = petsList.get("cat");
+                    return winner.getName();
                 } else {
-                    return "lama";
+                    winner = petsList.get("llama");
+                    return winner.getName();
                 }
 
             } else{
                 if(eatingLeftoversScale > 4){
-                    return "Schwein";
+                    winner = petsList.get("piglet");
+                    return winner.getName();
                 }
                 if(prefersBeachHolidayScale > 2 && eatingMeatScale > 2 && eatingLeftoversScale == 4){
-                    return "krokodil";
+                    winner = petsList.get("crocodile");
+                    return winner.getName();
                 } else if(prefersBeachHolidayScale < 3 && eatingMeatScale < 3){
-                    return "schildkröte";
+                    winner = petsList.get("turtle");
+                    return  winner.getName();
                 } else {
-                    return "pinguin";
+                    winner = petsList.get("penguin");
+                    return winner.getName();
                 }
             }
         }

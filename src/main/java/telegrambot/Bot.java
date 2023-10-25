@@ -46,7 +46,7 @@ public class Bot extends TelegramLongPollingBot {
             sendMessage(chatId, "You will need to rate each question from 1 to 5.",false);
             sendMessage(chatId, "Use the custom keyboard to do so!",false);
             game = new Game();
-            sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs");
+            sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs", false);
             sendAudio(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\drumroll.mp3");
             sendQuestion(chatId, game.getQuestion().toString(), true);
         } else if(messageReceived.equals("1") ||
@@ -54,24 +54,34 @@ public class Bot extends TelegramLongPollingBot {
                   messageReceived.equals("3") ||
                   messageReceived.equals("4") ||
                   messageReceived.equals("5")
-        ){
-            if(game.getIndex() < 9){
-                delegateTheUserAnswerToItsVariable((game.getIndex()),Integer.parseInt(messageReceived));
+        ) {
+            if (game.getIndex() < 9) {
+                delegateTheUserAnswerToItsVariable((game.getIndex()), Integer.parseInt(messageReceived));
                 sendQuestion(chatId, game.getQuestion().toString(), false);
-            } else if(game.getIndex() == 9){
-                delegateTheUserAnswerToItsVariable((game.getIndex()),Integer.parseInt(messageReceived));
-                sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!\n\uD83E\uDD41 \uD83E\uDD41 \uD83E\uDD41", false);
+            } else if (game.getIndex() == 9) {
+                delegateTheUserAnswerToItsVariable((game.getIndex()), Integer.parseInt(messageReceived));
+                sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!", false);
+                sendMessage(chatId, "🥁 🥁 🥁", false);
+                sendAudio(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\drumroll.mp3");
                 sendDrumroll(chatId);
                 sendMessage(chatId, game.showWinningPet(cleaningScale, inactivityScale,
                         selfCenterednessScale, eatingLeftoversScale, eatingMeatScale,
                         prefersBeachHolidayScale, sensitivenessScale), true);
-                //sendSticker(chatId, );
+                sendSticker(chatId, game.getWinner().getStickerFilePath(), true);
                 sendMessage(chatId, "If you want, you can feed, entertain, love or train your purrfect pet. \uD83C\uDF7D\uFE0F  \uD83C\uDFB6 ❤ \uD83D\uDCA1 ", true);
                 sendMessage(chatId, "Use the custom keyboard again to do so!", true);
 
             }
-
         }
+        sendMessage(chatId, "You can play with your pet as long as you want! If you want to end the game, please type 'end'", false);
+        boolean end = false;
+        if(messageReceived.equals("end")){
+            end = true;
+        }
+        while(!end){
+            sendPettingAudio(chatId, messageReceived);
+        }
+
         if (!(messageReceived.toLowerCase().equals("ready") ||
                 messageReceived.toLowerCase().startsWith("/start") ||
                 messageReceived.equals("1") ||
@@ -79,7 +89,7 @@ public class Bot extends TelegramLongPollingBot {
                 messageReceived.equals("3") ||
                 messageReceived.equals("4") ||
                 messageReceived.equals("5")
-                //change the condition so, so that it shows this answer at inappropriate options in this list as well??
+                //add petting options
              )
             )  {
             sendMessage(chatId, "That answer is not really purrfect!  \uD83D\uDC36\n", false);
@@ -144,13 +154,30 @@ public class Bot extends TelegramLongPollingBot {
 
     }
 
-    public void sendSticker(long chatId, String stickerPath){
+    public void sendSticker(long chatId, String stickerPath, boolean t){
+        boolean hasTimer = t;
         InputFile stickerFile = new InputFile(new File(stickerPath));
         SendSticker stickerMessage = new SendSticker(String.valueOf(chatId), stickerFile);
-        try {
-            execute(stickerMessage);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if(hasTimer){
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        execute(stickerMessage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 4000);
+
+        } else {
+            try {
+                execute(stickerMessage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -176,7 +203,27 @@ public class Bot extends TelegramLongPollingBot {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void sendPettingAudio(long chatId, String messageReceived){
+        InputFile audioDatei;
+        if(messageReceived.equals("feed")){
+            audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\feed.mp3"));
+        } else if(messageReceived.equals("entertain")){
+            audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\entertain.mp3"));
+        } else if(messageReceived.equals("love")){
+            audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\love.mp3"));
+        } else if(messageReceived.equals("train")){
+            audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\train.mp3"));
+        } else {
+            audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\ehh.mp3"));
+        }
+        SendAudio sendAudioMessage = new SendAudio(String.valueOf(chatId), audioDatei);
+        try {
+            execute(sendAudioMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
