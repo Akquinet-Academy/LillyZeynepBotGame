@@ -10,6 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.game.Game;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -40,10 +41,10 @@ public class Bot extends TelegramLongPollingBot {
         }
 
         if (messageReceived.toLowerCase().equals("ready")) {
-            sendMessage(chatId, "You will need to rate each question from 1 to 5.\n1 means 'not at all' and 5 'absolutely'", false);
+            sendMessage(chatId, "Here we go!\nYou will need to rate each question from 1 to 5.\n1 means 'not at all' and 5 'absolutely'", false);
             game = new Game();
-            //sendSticker(chatId, game.getPetsList().get("hund").getStickerFile());
-            sendQuestion(chatId, game.getQuestion().toString());
+            sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs");
+            sendQuestion(chatId, game.getQuestion().toString(), true);
         } else if(messageReceived.equals("1") ||
                   messageReceived.equals("2") ||
                   messageReceived.equals("3") ||
@@ -52,13 +53,14 @@ public class Bot extends TelegramLongPollingBot {
         ){
             if(game.getIndex() < 9){
                 delegateTheUserAnswerToItsVariable((game.getIndex()),Integer.parseInt(messageReceived));
-                sendQuestion(chatId, game.getQuestion().toString());
+                sendQuestion(chatId, game.getQuestion().toString(), false);
             } else if(game.getIndex() == 9){
                 delegateTheUserAnswerToItsVariable((game.getIndex()),Integer.parseInt(messageReceived));
                 sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!\n\uD83E\uDD41 \uD83E\uDD41 \uD83E\uDD41", false);
                 sendMessage(chatId, game.showWinningPet(cleaningScale, inactivityScale,
                         selfCenterednessScale, eatingLeftoversScale, eatingMeatScale,
                         prefersBeachHolidayScale, sensitivenessScale), true);
+                //sendSticker(chatId, );
             }
 
         }
@@ -129,14 +131,14 @@ public class Bot extends TelegramLongPollingBot {
                 e.printStackTrace();
             }
         }
-
     }
 
-    public void sendSticker(long chatId, InputFile file){
-        SendSticker stickerMessage = new SendSticker();
-        // InputFile sticker = new InputFile("stickers/sticker.webp");
+    public void sendSticker(long chatId, String stickerPath){
+        InputFile stickerFile = new InputFile(new File(stickerPath));
+        SendSticker stickerMessage = new SendSticker(String.valueOf(chatId), stickerFile);
+
         stickerMessage.setChatId(chatId);
-        stickerMessage.setSticker(file);
+        //stickerMessage.setSticker(file);
         try {
             execute(stickerMessage);
         } catch (Exception e) {
@@ -144,16 +146,31 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private void sendQuestion(long chatId, String s) {
+    private void sendQuestion(long chatId, String s, boolean t) {
+        boolean hasTimer = t;
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(s);
 
-        try {
-            createCustomKeyboard(message);
-            execute(message);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(hasTimer){
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        execute(message);
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 4000);
+
+        } else {
+            try {
+                execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -173,12 +190,12 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "6663371100:AAGNoAWH0oW3l-U_OgvLoStKLu_zQ3vh4YY";  // TODO: insert your bot token here!
+        return "6548600979:AAFFNw7Zf64k2wDbmUz_QN9B9oNqQJXZ4gM";  // TODO: insert your bot token here!
     }
 
     @Override
     public String getBotUsername() {
-        return "PetWhispererBot";  // TODO: insert your bots username here
+        return "CakiBotBot";  // TODO: insert your bots username here
     }
 
 

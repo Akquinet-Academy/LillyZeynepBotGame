@@ -1,5 +1,6 @@
 package telegrambot.game;
 
+import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import telegrambot.Bot;
 
@@ -31,8 +32,15 @@ public class Game {
     }
 
     private Map<String, Pet> initPets(){
-        return Map.of("katze", new Pet("Katze",  new InputFile("stickers/sticker.webp")),
-                "hund", new Pet("hund",  new InputFile("stickers/sticker.webp")));
+        return Map.of("chameleon", new Pet("Chaos Chameleon", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-first.tgs"),
+                        "sloth", new Pet("RambaZamba Sloth", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.first.tgs"),
+                        "goat", new Pet("Grumbling Goat", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.first.tgs"),
+                        "crocodile", new Pet("Schnappi the Crocodile", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.first.tgs"),
+                        "penguin", new Pet("Paradise Penguin", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.first.tgs"),
+                        "cat", new Pet("Queen Cat", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.first.tgs"),
+                        "llama", new Pet("Laughing Llama", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.first.tgs"),
+                        "piglet", new Pet("Frederick Piglet", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.first.tgs"),
+                        "turtle", new Pet("Turbo Turtle", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.first.tgs"));
         // add others as well
     }
 
