@@ -32,15 +32,15 @@ public class Game {
     }
 
     private Map<String, Pet> initPets(){
-        return Map.of("chameleon", new Pet("Chaos Chameleon", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-first.tgs"),
-                        "sloth", new Pet("RambaZamba Sloth", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.first.tgs"),
-                        "goat", new Pet("Grumbling Goat", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.first.tgs"),
-                        "crocodile", new Pet("Schnappi the Crocodile", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.first.tgs"),
-                        "penguin", new Pet("Paradise Penguin", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.first.tgs"),
-                        "cat", new Pet("Queen Cat", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.first.tgs"),
-                        "llama", new Pet("Laughing Llama", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.first.tgs"),
-                        "piglet", new Pet("Frederick Piglet", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.first.tgs"),
-                        "turtle", new Pet("Turbo Turtle", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.first.tgs"));
+        return Map.of("chameleon", new Pet("Chaos Chameleon", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\chaos-chamälion.mp3"),
+                        "sloth", new Pet("RambaZamba Sloth", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\081483_pinkie-it39s-party-timewav-82658.mp3"),
+                        "goat", new Pet("Grumbling Goat", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\goat.mp3"),
+                        "crocodile", new Pet("Schnappi the Crocodile", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\crocodile.mp3"),
+                        "penguin", new Pet("Paradise Penguin", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\acoustic-guitar.mp3"),
+                        "cat", new Pet("Queen Cat", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\cat-meow.mp3"),
+                        "llama", new Pet("Laughing Llama", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\LLama.mp3"),
+                        "piglet", new Pet("Frederick Piglet", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\Schwein.mp3"),
+                        "turtle", new Pet("Turbo Turtle", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.first.tgs","C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\Turbo-Turtle.mp3"));
         // add others as well
     }
 
