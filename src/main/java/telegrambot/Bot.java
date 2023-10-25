@@ -40,9 +40,9 @@ public class Bot extends TelegramLongPollingBot {
         }
 
         if (messageReceived.toLowerCase().equals("ready")) {
-            sendMessage(chatId, "you will need to rate each question from 1 to 5.\n1 means 'not at all' and 5 'absolutely'", false);
+            sendMessage(chatId, "You will need to rate each question from 1 to 5.\n1 means 'not at all' and 5 'absolutely'", false);
             game = new Game();
-            sendSticker(chatId, game.getPetsList().get("hund").getStickerFile());
+            //sendSticker(chatId, game.getPetsList().get("hund").getStickerFile());
             sendQuestion(chatId, game.getQuestion().toString());
         } else if(messageReceived.equals("1") ||
                   messageReceived.equals("2") ||
@@ -55,7 +55,7 @@ public class Bot extends TelegramLongPollingBot {
                 sendQuestion(chatId, game.getQuestion().toString());
             } else if(game.getIndex() == 9){
                 delegateTheUserAnswerToItsVariable((game.getIndex()),Integer.parseInt(messageReceived));
-                sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!", false);
+                sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!\n\uD83E\uDD41 \uD83E\uDD41 \uD83E\uDD41", false);
                 sendMessage(chatId, game.showWinningPet(cleaningScale, inactivityScale,
                         selfCenterednessScale, eatingLeftoversScale, eatingMeatScale,
                         prefersBeachHolidayScale, sensitivenessScale), true);

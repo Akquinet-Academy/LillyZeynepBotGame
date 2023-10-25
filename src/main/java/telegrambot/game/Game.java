@@ -18,15 +18,15 @@ public class Game {
     }
 
     private List<Question> initQuestions() {
-        return List.of(new Question("Do you find cleaning your apartment to be a thrill ride?", 1),
-                new Question("Would you like to live in a parallel world where time flows at half the speed?",2),
-                new Question("Would you proudly wear the badge of a certified couch potato?",3),
-                new Question("Are you as stubborn as a mule?",4),
-                new Question("Is leftover food your secret weapon against intergalactic invaders?",5),
-                new Question("In a heated discussion, do you fight tooth and nail to be the reigning champ of rightness?",6),
-                new Question("Do you enjoy a meaty feast?",7),
-                new Question("How do you feel about a holiday basking in the sun and splashing in the waves?",8),
-                new Question("On average, how many mental breakdances do you treat yourself to in a week?", 9)
+        return List.of(new Question("Do you find cleaning your apartment to be a thrill ride? \uD83E\uDDF9\uD83E\uDEA3\uD83E\uDDFC", 1),
+                new Question("Would you like to live in a parallel world where time flows at half the speed? \uD83E\uDE90",2),
+                new Question("Would you proudly wear the badge of a certified couch potato? \uD83D\uDECB\uD83E\uDD54",3),
+                new Question("Are you as stubborn as a mule? \uD83D\uDC34",4),
+                new Question("Is leftover food your secret weapon against intergalactic invaders? \uD83C\uDF55\uD83C\uDF5D",5),
+                new Question("In a heated discussion, do you fight tooth and nail to be the reigning champ of rightness? \uD83E\uDD77",6),
+                new Question("Do you enjoy a meaty feast? \uD83E\uDD69\uD83C\uDF57",7),
+                new Question("How do you feel about a holiday basking in the sun and splashing in the waves? \uD83C\uDF0A\uD83C\uDFD6",8),
+                new Question("On average, how many mental breakdances do you treat yourself to in a week? \uD83D\uDE02\uD83D\uDE2D", 9)
         );
     }
 
