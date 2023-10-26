@@ -32,16 +32,69 @@ public class Game {
     }
 
     private Map<String, Pet> initPets(){
-        return Map.of("chameleon", new Pet("Chaos Chameleon", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\chaos-chamälion.mp3"),
-                        "sloth", new Pet("RambaZamba Sloth", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\081483_pinkie-it39s-party-timewav-82658.mp3"),
-                        "goat", new Pet("Grumbling Goat", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\goat.mp3"),
-                        "crocodile", new Pet("Schnappi the Crocodile", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\crocodile.mp3"),
-                        "penguin", new Pet("Paradise Penguin", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\acoustic-guitar.mp3"),
-                        "cat", new Pet("Queen Cat", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\cat-meow.mp3"),
-                        "llama", new Pet("Laughing Llama", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\LLama.mp3"),
-                        "piglet", new Pet("Frederick Piglet", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.first.tgs", "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\Schwein.mp3"),
-                        "turtle", new Pet("Turbo Turtle", "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.first.tgs","C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\Turbo-Turtle.mp3"));
-        // add others as well
+        return Map.of("chameleon", new Pet("Chaos Chameleon",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\chamelion.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\chameleon\\chameleon-train.tgs"),
+                        "sloth", new Pet("RambaZamba Sloth",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\sloth.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\sloth\\sloth.train.tgs"),
+                        "goat", new Pet("Grumbling Goat",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\goat.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\goat\\goat.train.tgs"),
+                        "crocodile", new Pet("Schnappi the Crocodile",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\crocodile.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\crocodile\\crocodile.train.tgs"),
+                        "penguin", new Pet("Paradise Penguin",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\penguin.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\penguin\\penguin.train.tgs"),
+                        "cat", new Pet("Queen Cat",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\cat.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\cat\\cat.train.tgs"),
+                        "llama", new Pet("Laughing Llama",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\llama.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\llama\\llama.train.tgs"),
+                        "piglet", new Pet("Frederick Piglet",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\piglet.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\piglet\\piglet.train.tgs"),
+                        "turtle", new Pet("Turbo Turtle",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.first.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\turtle.mp3",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.feed.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.entertain.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.love.tgs",
+                        "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\turtle\\turtle.train.tgs"));
     }
 
 
@@ -74,7 +127,7 @@ public class Game {
             return winner.getName();
         } else {
             if(cleaningScale > 2){
-                if(inactivityScale >= 9){
+                if(inactivityScale >= 8){
                     winner = petsList.get("sloth");
                     return winner.getName();
                 }
@@ -82,7 +135,7 @@ public class Game {
                     winner = petsList.get("goat");
                     return winner.getName();
                 }
-                if(inactivityScale < 9 && selfCenterednessScale < 9 && eatingMeatScale > 2){
+                if(eatingMeatScale > 3){
                     winner = petsList.get("cat");
                     return winner.getName();
                 } else {
@@ -95,7 +148,7 @@ public class Game {
                     winner = petsList.get("piglet");
                     return winner.getName();
                 }
-                if(prefersBeachHolidayScale > 2 && eatingMeatScale > 2 && eatingLeftoversScale == 4){
+                if(prefersBeachHolidayScale > 2 && eatingMeatScale > 2 && (eatingLeftoversScale == 4 || eatingLeftoversScale ==3)){
                     winner = petsList.get("crocodile");
                     return winner.getName();
                 } else if(prefersBeachHolidayScale < 3 && eatingMeatScale < 3){

@@ -27,8 +27,45 @@ public class Bot extends TelegramLongPollingBot {
     private int eatingMeatScale = 0;
     private int prefersBeachHolidayScale = 0;
     private int sensitivenessScale = 0;
+    private boolean hasShowedPet = false;
+    private boolean isGameActive = false;
 
 
+    public void setCleaningScale(int cleaningScale) {
+        this.cleaningScale = cleaningScale;
+    }
+
+    public void setInactivityScale(int inactivityScale) {
+        this.inactivityScale = inactivityScale;
+    }
+
+    public void setSelfCenterednessScale(int selfCenterednessScale) {
+        this.selfCenterednessScale = selfCenterednessScale;
+    }
+
+    public void setEatingLeftoversScale(int eatingLeftoversScale) {
+        this.eatingLeftoversScale = eatingLeftoversScale;
+    }
+
+    public void setEatingMeatScale(int eatingMeatScale) {
+        this.eatingMeatScale = eatingMeatScale;
+    }
+
+    public void setPrefersBeachHolidayScale(int prefersBeachHolidayScale) {
+        this.prefersBeachHolidayScale = prefersBeachHolidayScale;
+    }
+
+    public void setSensitivenessScale(int sensitivenessScale) {
+        this.sensitivenessScale = sensitivenessScale;
+    }
+
+    public void setHasShowedPet(boolean hasShowedPet) {
+        this.hasShowedPet = hasShowedPet;
+    }
+
+    public void setGameActive(boolean gameActive) {
+        isGameActive = gameActive;
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -36,50 +73,70 @@ public class Bot extends TelegramLongPollingBot {
         String messageReceived = update.getMessage().getText();
 
         if (messageReceived.toLowerCase().startsWith("/start")) {
-            sendMessage(chatId, "Hello! Welcome pet lover!  \uD83D\uDC36\n", false);
-            sendMessage(chatId, "Let's answer some questions to find the purrfect pet for you!",false);
-            sendMessage(chatId, "Type 'ready' if you are ready! ☺",false);
+            setGameActive(true);
+            sendMessage(chatId, "Hello! Welcome pet lover!  \uD83D\uDC36\n", 0);
+            sendMessage(chatId, "Let's answer some questions to find the purrfect pet for you!",0);
+            sendMessage(chatId, "Type 'ready' if you are ready! ☺",0);
         }
 
-        if (messageReceived.toLowerCase().equals("ready")) {
-            sendMessage(chatId, "Here we go!", false);
-            sendMessage(chatId, "You will need to rate each question from 1 to 5.",false);
-            sendMessage(chatId, "Use the custom keyboard to do so!",false);
+        if (messageReceived.toLowerCase().equals("ready") && isGameActive) {
+            sendMessage(chatId, "Here we go!", 0);
+            sendMessage(chatId, "You will need to rate each question from 1 to 5.",0);
+            sendMessage(chatId, "1 means 'not at all' and 5 means 'absolutely'.",0);
+            sendMessage(chatId, "Use the custom keyboard to do so!",0);
             game = new Game();
             sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs", false);
-            sendAudio(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\drumroll.mp3");
             sendQuestion(chatId, game.getQuestion().toString(), true);
-        } else if(messageReceived.equals("1") ||
+        } else if((messageReceived.equals("1") ||
                   messageReceived.equals("2") ||
                   messageReceived.equals("3") ||
                   messageReceived.equals("4") ||
-                  messageReceived.equals("5")
-        ) {
+                  messageReceived.equals("5")) && isGameActive) {
             if (game.getIndex() < 9) {
                 delegateTheUserAnswerToItsVariable((game.getIndex()), Integer.parseInt(messageReceived));
                 sendQuestion(chatId, game.getQuestion().toString(), false);
-            } else if (game.getIndex() == 9) {
+            } else if ((game.getIndex() == 9) && (!hasShowedPet)) {
+
                 delegateTheUserAnswerToItsVariable((game.getIndex()), Integer.parseInt(messageReceived));
-                sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!", false);
-                sendMessage(chatId, "🥁 🥁 🥁", false);
-                sendAudio(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\drumroll.mp3");
+                sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!", 0);
+                sendMessage(chatId, "🥁 🥁 🥁", 0);
                 sendDrumroll(chatId);
                 sendMessage(chatId, game.showWinningPet(cleaningScale, inactivityScale,
                         selfCenterednessScale, eatingLeftoversScale, eatingMeatScale,
-                        prefersBeachHolidayScale, sensitivenessScale), true);
-                sendSticker(chatId, game.getWinner().getStickerFilePath(), true);
-                sendMessage(chatId, "If you want, you can feed, entertain, love or train your purrfect pet. \uD83C\uDF7D\uFE0F  \uD83C\uDFB6 ❤ \uD83D\uDCA1 ", true);
-                sendMessage(chatId, "Use the custom keyboard again to do so!", true);
-
+                        prefersBeachHolidayScale, sensitivenessScale), 4000);
+////////////// Die Reihenfolge der Nachrichten müssen wir noch verbessern!
+                sendSticker(chatId, game.getWinner().getFirstSticker(), true);
+                sendAudio(chatId, game.getWinner().getAudioDateiPath(), true);
+                setHasShowedPet(true);
+                sendMessage(chatId, "If you want, you can feed, entertain, love or train your purrfect pet. \uD83C\uDF7D\uFE0F  \uD83C\uDFB6 ❤ \uD83D\uDCA1 ", 6000);
+                sendMessage(chatId, "Use the custom keyboard again to do so!", 6500);
+                sendMessage(chatId, "You can play with your pet as long as you want! If you want to end the game, please type 'end'", 7000);
             }
-        }
-        sendMessage(chatId, "You can play with your pet as long as you want! If you want to end the game, please type 'end'", false);
-        boolean end = false;
-        if(messageReceived.equals("end")){
-            end = true;
-        }
-        while(!end){
-            sendPettingAudio(chatId, messageReceived);
+        } else if(messageReceived.toLowerCase().equals("end") && isGameActive){
+                sendMessage(chatId, "Bye! \uD83D\uDC4B", 0);
+                setGameActive(false);
+                setHasShowedPet(false);
+                setCleaningScale(0);
+                setSelfCenterednessScale(0);
+                setInactivityScale(0);
+                setEatingLeftoversScale(0);
+                setEatingMeatScale(0);
+                setPrefersBeachHolidayScale(0);
+                setSensitivenessScale(0);
+        } else if((messageReceived.toLowerCase().equals("feed") ||
+                messageReceived.toLowerCase().equals("love") ||
+                messageReceived.toLowerCase().equals("entertain") ||
+                messageReceived.toLowerCase().equals("train")) && hasShowedPet && isGameActive){
+                sendPettingAudio(chatId, messageReceived);
+                if(messageReceived.equals("feed")){
+                    sendSticker(chatId, game.getWinner().getFeedSticker(), false);
+                } else if(messageReceived.equals("love")){
+                    sendSticker(chatId, game.getWinner().getLoveSticker(), false);
+                } else if(messageReceived.equals("entertain")){
+                    sendSticker(chatId, game.getWinner().getEntertainSticker(), false);
+                } else if(messageReceived.equals("train")){
+                    sendSticker(chatId, game.getWinner().getTrainSticker(), false);
+                }
         }
 
         if (!(messageReceived.toLowerCase().equals("ready") ||
@@ -88,11 +145,17 @@ public class Bot extends TelegramLongPollingBot {
                 messageReceived.equals("2") ||
                 messageReceived.equals("3") ||
                 messageReceived.equals("4") ||
-                messageReceived.equals("5")
-                //add petting options
-             )
-            )  {
-            sendMessage(chatId, "That answer is not really purrfect!  \uD83D\uDC36\n", false);
+                messageReceived.equals("5") ||
+                messageReceived.toLowerCase().equals("feed") ||
+                messageReceived.toLowerCase().equals("love") ||
+                messageReceived.toLowerCase().equals("entertain") ||
+                messageReceived.toLowerCase().equals("train") ||
+                messageReceived.toLowerCase().equals("end")
+             ))  {
+            sendMessage(chatId, "That answer is not really purrfect!  \uD83D\uDC36\n", 0);
+        }
+        if(!isGameActive){
+            sendMessage(chatId, "Type /start to start the game again", 0);
         }
     }
 
@@ -122,14 +185,13 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private void sendMessage(long chatId, String s, boolean t) {
-        boolean hasTimer = t;
+    private void sendMessage(long chatId, String s, int time) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(s);
         // msg.setReplyMarkup(null); this doesnt work, but we can use keyboard to pet the animals??
 
-        if(hasTimer){
+        if(time != 0){
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
@@ -141,7 +203,7 @@ public class Bot extends TelegramLongPollingBot {
                         e.printStackTrace();
                     }
                 }
-            }, 4000);
+            }, time);
 
         } else {
             try {
@@ -154,7 +216,7 @@ public class Bot extends TelegramLongPollingBot {
 
     }
 
-    public void sendSticker(long chatId, String stickerPath, boolean t){
+    public boolean sendSticker(long chatId, String stickerPath, boolean t){
         boolean hasTimer = t;
         InputFile stickerFile = new InputFile(new File(stickerPath));
         SendSticker stickerMessage = new SendSticker(String.valueOf(chatId), stickerFile);
@@ -179,11 +241,12 @@ public class Bot extends TelegramLongPollingBot {
                 e.printStackTrace();
             }
         }
+        return true;
     }
 
     public void sendDrumroll(long chatId){
 
-        String audioFilePath = "C:\\Users\\LillySeiffert\\development\\LillyZeynepBotGame\\src\\main\\resources\\audio\\drumroll-93348.mp3";
+        String audioFilePath = "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\drumroll.mp3";
 
         InputFile audioDatei = new InputFile(new File(audioFilePath));
         SendAudio sendAudio = new SendAudio(String.valueOf(chatId), audioDatei);
@@ -195,18 +258,35 @@ public class Bot extends TelegramLongPollingBot {
 
     }
 
-    public void sendAudio(long chatId, String audioFilePath){
+    public void sendAudio(long chatId, String audioFilePath, boolean t){
+        boolean hasTimer = t;
         InputFile audioDatei = new InputFile(new File(audioFilePath));
         SendAudio sendAudioMessage = new SendAudio(String.valueOf(chatId), audioDatei);
-        try {
-            execute(sendAudioMessage);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if(hasTimer){
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        execute(sendAudioMessage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 4000);
+        }else{
+            try {
+                execute(sendAudioMessage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void sendPettingAudio(long chatId, String messageReceived){
-        InputFile audioDatei;
+        InputFile audioDatei = null;
         if(messageReceived.equals("feed")){
             audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\feed.mp3"));
         } else if(messageReceived.equals("entertain")){
@@ -215,8 +295,6 @@ public class Bot extends TelegramLongPollingBot {
             audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\love.mp3"));
         } else if(messageReceived.equals("train")){
             audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\train.mp3"));
-        } else {
-            audioDatei = new InputFile(new File("C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\audio\\ehh.mp3"));
         }
         SendAudio sendAudioMessage = new SendAudio(String.valueOf(chatId), audioDatei);
         try {
@@ -279,12 +357,12 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "6663371100:AAGNoAWH0oW3l-U_OgvLoStKLu_zQ3vh4YY";  // TODO: insert your bot token here!
+        return "6548600979:AAFFNw7Zf64k2wDbmUz_QN9B9oNqQJXZ4gM";  // TODO: insert your bot token here!
     }
 
     @Override
     public String getBotUsername() {
-        return "PetWhispererBot";  // TODO: insert your bots username here
+        return "CakiBotBot";  // TODO: insert your bots username here
     }
 
 
