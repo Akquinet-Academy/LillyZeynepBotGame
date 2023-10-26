@@ -72,71 +72,26 @@ public class Bot extends TelegramLongPollingBot {
         long chatId = update.getMessage().getChatId();
         String messageReceived = update.getMessage().getText();
 
-        if (messageReceived.toLowerCase().startsWith("/start")) {
-            setGameActive(true);
-            sendMessage(chatId, "Hello! Welcome pet lover!  \uD83D\uDC36\n", 0);
-            sendMessage(chatId, "Let's answer some questions to find the purrfect pet for you!",0);
-            sendMessage(chatId, "Type 'ready' if you are ready! ☺",0);
-        }
+        start(chatId, messageReceived);
 
         if (messageReceived.toLowerCase().equals("ready") && isGameActive) {
-            sendMessage(chatId, "Here we go!", 0);
-            sendMessage(chatId, "You will need to rate each question from 1 to 5.",0);
-            sendMessage(chatId, "1 means 'not at all' and 5 means 'absolutely'.",0);
-            sendMessage(chatId, "Use the custom keyboard to do so!",0);
-            game = new Game();
-            sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs", false);
-            sendQuestion(chatId, game.getQuestion().toString(), true);
+            explainAndStartTheQuestions(chatId);
+
         } else if((messageReceived.equals("1") ||
                   messageReceived.equals("2") ||
                   messageReceived.equals("3") ||
                   messageReceived.equals("4") ||
                   messageReceived.equals("5")) && isGameActive) {
-            if (game.getIndex() < 9) {
-                delegateTheUserAnswerToItsVariable((game.getIndex()), Integer.parseInt(messageReceived));
-                sendQuestion(chatId, game.getQuestion().toString(), false);
-            } else if ((game.getIndex() == 9) && (!hasShowedPet)) {
+            askQuestionsFindThePet(chatId, messageReceived);
 
-                delegateTheUserAnswerToItsVariable((game.getIndex()), Integer.parseInt(messageReceived));
-                sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!", 0);
-                sendMessage(chatId, "🥁 🥁 🥁", 0);
-                sendDrumroll(chatId);
-                sendMessage(chatId, game.showWinningPet(cleaningScale, inactivityScale,
-                        selfCenterednessScale, eatingLeftoversScale, eatingMeatScale,
-                        prefersBeachHolidayScale, sensitivenessScale), 4000);
-////////////// Die Reihenfolge der Nachrichten müssen wir noch verbessern!
-                sendSticker(chatId, game.getWinner().getFirstSticker(), true);
-                sendAudio(chatId, game.getWinner().getAudioDateiPath(), true);
-                setHasShowedPet(true);
-                sendMessage(chatId, "If you want, you can feed, entertain, love or train your purrfect pet. \uD83C\uDF7D\uFE0F  \uD83C\uDFB6 ❤ \uD83D\uDCA1 ", 6000);
-                sendMessage(chatId, "Use the custom keyboard again to do so!", 6500);
-                sendMessage(chatId, "You can play with your pet as long as you want! If you want to end the game, please type 'end'", 7000);
-            }
         } else if(messageReceived.toLowerCase().equals("end") && isGameActive){
-                sendMessage(chatId, "Bye! \uD83D\uDC4B", 0);
-                setGameActive(false);
-                setHasShowedPet(false);
-                setCleaningScale(0);
-                setSelfCenterednessScale(0);
-                setInactivityScale(0);
-                setEatingLeftoversScale(0);
-                setEatingMeatScale(0);
-                setPrefersBeachHolidayScale(0);
-                setSensitivenessScale(0);
+            endTheGame(chatId);
+
         } else if((messageReceived.toLowerCase().equals("feed") ||
                 messageReceived.toLowerCase().equals("love") ||
                 messageReceived.toLowerCase().equals("entertain") ||
                 messageReceived.toLowerCase().equals("train")) && hasShowedPet && isGameActive){
-                sendPettingAudio(chatId, messageReceived);
-                if(messageReceived.equals("feed")){
-                    sendSticker(chatId, game.getWinner().getFeedSticker(), false);
-                } else if(messageReceived.equals("love")){
-                    sendSticker(chatId, game.getWinner().getLoveSticker(), false);
-                } else if(messageReceived.equals("entertain")){
-                    sendSticker(chatId, game.getWinner().getEntertainSticker(), false);
-                } else if(messageReceived.equals("train")){
-                    sendSticker(chatId, game.getWinner().getTrainSticker(), false);
-                }
+            petYourPet(chatId, messageReceived);
         }
 
         if (!(messageReceived.toLowerCase().equals("ready") ||
@@ -156,6 +111,72 @@ public class Bot extends TelegramLongPollingBot {
         }
         if(!isGameActive){
             sendMessage(chatId, "Type /start to start the game again", 0);
+        }
+    }
+
+    private void start(long chatId, String messageReceived){
+        if (messageReceived.toLowerCase().startsWith("/start")) {
+            setGameActive(true);
+            sendMessage(chatId, "Hello! Welcome pet lover!  \uD83D\uDC36\n", 0);
+            sendMessage(chatId, "Let's answer some questions to find the purrfect pet for you!",0);
+            sendMessage(chatId, "Type 'ready' if you are ready! ☺",0);
+        }
+    }
+
+    public void explainAndStartTheQuestions(long chatId){
+        sendMessage(chatId, "Here we go!", 0);
+        sendMessage(chatId, "You will need to rate each question from 1 to 5.",0);
+        sendMessage(chatId, "1 means 'not at all' and 5 means 'absolutely'.",0);
+        sendMessage(chatId, "Use the custom keyboard to do so!",0);
+        game = new Game();
+        sendSticker(chatId, "C:\\Users\\ZeynepDerin\\IdeaProjects\\LillyZeynepBotGame\\src\\main\\resources\\stickers\\bamdumtis.tgs", false);
+        sendQuestion(chatId, game.getQuestion().toString(), true);
+    }
+
+    public void askQuestionsFindThePet(long chatId, String messageReceived){
+        if (game.getIndex() < 9) {
+            delegateTheUserAnswerToItsVariable((game.getIndex()), Integer.parseInt(messageReceived));
+            sendQuestion(chatId, game.getQuestion().toString(), false);
+        } else if ((game.getIndex() == 9) && (!hasShowedPet)) {
+            setHasShowedPet(true);
+            delegateTheUserAnswerToItsVariable((game.getIndex()), Integer.parseInt(messageReceived));
+            sendMessage(chatId, "Here it is! Meet the pet that effortlessly fits into your world!", 0);
+            sendMessage(chatId, "🥁 🥁 🥁", 0);
+            sendDrumroll(chatId);
+            sendMessage(chatId, game.showWinningPet(cleaningScale, inactivityScale,
+                    selfCenterednessScale, eatingLeftoversScale, eatingMeatScale,
+                    prefersBeachHolidayScale, sensitivenessScale), 4000);
+            sendSticker(chatId, game.getWinner().getFirstSticker(), true);
+            sendAudio(chatId, game.getWinner().getAudioDateiPath(), true);
+            sendMessage(chatId, "If you want, you can feed, entertain, love or train your purrfect pet. \uD83C\uDF7D\uFE0F  \uD83C\uDFB6 ❤ \uD83D\uDCA1 ", 6000);
+            sendMessage(chatId, "Use the custom keyboard again to do so!", 6500);
+            sendMessage(chatId, "You can play with your pet as long as you want! If you want to end the game, please type 'end'", 7000);
+        }
+    }
+
+    public void endTheGame(long chatId){
+        sendMessage(chatId, "Bye! \uD83D\uDC4B", 0);
+        setGameActive(false);
+        setHasShowedPet(false);
+        setCleaningScale(0);
+        setSelfCenterednessScale(0);
+        setInactivityScale(0);
+        setEatingLeftoversScale(0);
+        setEatingMeatScale(0);
+        setPrefersBeachHolidayScale(0);
+        setSensitivenessScale(0);
+    }
+
+    public void petYourPet(long chatId, String messageReceived){
+        sendPettingAudio(chatId, messageReceived);
+        if(messageReceived.equals("feed")){
+            sendSticker(chatId, game.getWinner().getFeedSticker(), false);
+        } else if(messageReceived.equals("love")){
+            sendSticker(chatId, game.getWinner().getLoveSticker(), false);
+        } else if(messageReceived.equals("entertain")){
+            sendSticker(chatId, game.getWinner().getEntertainSticker(), false);
+        } else if(messageReceived.equals("train")){
+            sendSticker(chatId, game.getWinner().getTrainSticker(), false);
         }
     }
 
